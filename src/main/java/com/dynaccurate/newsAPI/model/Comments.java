@@ -23,6 +23,9 @@ public class Comments {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotBlank(message = "The content field cannot be blank")
+	private String content;
+	
 	@NotBlank(message = "The author field cannot be blank")
 	private String author;
 	
@@ -65,6 +68,15 @@ public class Comments {
 	public void setNews(News news) {
 		this.news = news;
 	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	
 	
 }
