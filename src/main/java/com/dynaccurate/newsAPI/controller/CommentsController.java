@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,11 @@ import com.dynaccurate.newsAPI.repository.CommentsRepository;
 public class CommentsController {
 	
 	@Autowired
-	private CommentsRepository repository;
+	private CommentsRepository repository;	
 	
-	@GetMapping
-	public ResponseEntity<List<Comments>> getAll(){
-		List<Comments> listObject = repository.findAll();
-
+	@GetMapping("/id/{id_news}")
+	public ResponseEntity<List<Comments>> getAllId(@PathVariable long id_news ){
+		List<Comments> listObject = repository.findByNewsId(id_news);
 		if (listObject.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
@@ -37,5 +37,6 @@ public class CommentsController {
 	public ResponseEntity<Comments> registerComment(@RequestBody Comments comment){
 		return ResponseEntity.status(201).body(repository.save(comment));
 		}
+	
 
 }
