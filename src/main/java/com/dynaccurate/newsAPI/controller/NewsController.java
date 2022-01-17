@@ -49,6 +49,16 @@ public class NewsController {
 			return ResponseEntity.status(200).body(listObject);
 		}
 	}
+	@GetMapping("/tags/{tags}")
+	public ResponseEntity<List<News>> searchTags(@PathVariable(value = "tags") String tags) {
+		List<News> listObject = repository.findAllByTagsContainingIgnoreCase(tags);
+		if (listObject.isEmpty()) {
+			return ResponseEntity.status(204).build();
+		} else {
+			return ResponseEntity.status(200).body(listObject);
+		}
+	}
+	
 
 	@PostMapping("/register")
 	public ResponseEntity<News> registerNews(@RequestBody News news) {
