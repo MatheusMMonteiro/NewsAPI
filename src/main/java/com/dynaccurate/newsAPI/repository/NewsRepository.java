@@ -9,4 +9,6 @@ import com.dynaccurate.newsAPI.model.News;
 public interface NewsRepository extends JpaRepository<News, Long> {
 
 	public List<News> findAllByTitleContainingIgnoreCase(String title);
+	
+	public List<News> findAllByTagsContainingIgnoreCase(String tags);
 }
