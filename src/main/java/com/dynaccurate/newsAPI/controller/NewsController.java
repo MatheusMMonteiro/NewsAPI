@@ -40,6 +40,13 @@ public class NewsController {
 		}
 	}
 
+	@GetMapping("/id/{id}")
+	public ResponseEntity<News> getById(@PathVariable long id) {
+		return repository.findById(id)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
+	
 	@GetMapping("/title/{title_news}")
 	public ResponseEntity<List<News>> searchTitle(@PathVariable(value = "title_news") String title) {
 		List<News> listObject = repository.findAllByTitleContainingIgnoreCase(title);
